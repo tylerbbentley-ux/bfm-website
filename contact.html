@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Bentley Financial Management</title>
+  <meta name="description" content="Start a conversation with Bentley Financial Management — independent, boutique wealth management delivered by the people who advise you.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=15">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="monogram">BFM</span>
+        <span class="brand-text">Bentley Financial Management</span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">Our Team</a>
+        <a href="services.html">What We Do</a>
+        <a href="philosophy.html">Our Approach</a>
+        <a href="insights.html">Insights</a>
+        <a class="nav-cta" href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <p class="eyebrow eyebrow--light">Contact</p>
+      <h1>Start the conversation.</h1>
+      <p class="lead">The best first step is a straightforward conversation about what you&rsquo;re working toward. We&rsquo;ll respond personally, with clear answers — no product to sell, no obligation.</p>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Offices &amp; contact</p>
+        <hr class="rule">
+        <div class="contact-item">
+          <div class="k">Email</div>
+          <div class="v"><a href="mailto:BFM@lpl.com">BFM@lpl.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="k">Phone</div>
+          <div class="v"><a href="tel:+18002118504">1-800-211-8504</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="k">Conroe, Texas</div>
+          <div class="v">4714 FM 1488 Road, Ste 121<br>Conroe, TX 77384</div>
+        </div>
+        <div class="contact-item">
+          <div class="k">Roseburg, Oregon</div>
+          <div class="v">2510 NW Edenbower Blvd, Ste 164<br>Roseburg, OR 97471</div>
+        </div>
+        <div class="contact-item">
+          <div class="k">Where we serve</div>
+          <div class="v">Serving clients across 26 states and three continents</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-top:0;">Tell us about your goals.</h3>
+        <!-- Submissions are emailed to tyler.bentley@lpl.com via FormSubmit (no backend needed).
+             The FIRST submission triggers a one-time confirmation email to that address — click the
+             link in it once to activate delivery. To hide the email from page source later, swap in
+             the FormSubmit alias (formsubmit.co/el/XXXX) shown after activation. -->
+        <form class="contact-form" action="https://formsubmit.co/tyler.bentley@lpl.com" method="POST">
+          <input type="hidden" name="_subject" value="New inquiry from the BFM website">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="interest">I&rsquo;m interested in</label>
+            <select id="interest" name="interest">
+              <option>Investment management</option>
+              <option>Financial planning</option>
+              <option>Business &amp; retirement (401(k), IRA, small business)</option>
+              <option>Just learning more</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">How can we help?</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Send message</button>
+          <p class="form-note">This form is for general inquiries. It is not a request for personalized investment advice, and sending it does not create an advisory relationship.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Direct access -->
+  <section class="section section--paper">
+    <div class="wrap split split--narrow">
+      <div>
+        <p class="eyebrow">Direct access</p>
+        <hr class="rule">
+        <h2>You reach the people who advise you.</h2>
+        <p>At a firm our size, the people you speak with are the people who do the work. There&rsquo;s no call center and no anonymous desk between you and a decision. The person who builds your plan is the person who explains it — and stands behind every recommendation.</p>
+      </div>
+      <div class="panel">
+        <ul class="people-list">
+          <li>
+            <span class="pl-name">Tom Bentley, CFP&reg;, AIF&reg;</span>
+            <span class="pl-role">Founder &amp; Owner</span>
+            <a class="pl-email" href="mailto:tom.bentley@lpl.com">tom.bentley@lpl.com</a>
+          </li>
+          <li>
+            <span class="pl-name">Tyler Bentley</span>
+            <span class="pl-role">Associate Partner &amp; Head of Research</span>
+            <a class="pl-email" href="mailto:tyler.bentley@lpl.com">tyler.bentley@lpl.com</a>
+          </li>
+          <li>
+            <span class="pl-name">Courtney Fitzgerald, CFP&reg;, AIF&reg;</span>
+            <span class="pl-role">Wealth Advisor &amp; Head of Client Relations</span>
+            <a class="pl-email" href="mailto:courtney.fitzgerald@lpl.com">courtney.fitzgerald@lpl.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="monogram">BFM</span>
+          <span class="brand-text">Bentley Financial Management</span>
+        </a>
+        <p class="footer-tag">Independent, boutique wealth management for your whole financial life.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">What We Do</a></li>
+          <li><a href="philosophy.html">Our Approach</a></li>
+          <li><a href="about.html">Our Team</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:BFM@lpl.com">BFM@lpl.com</a></li>
+          <li><a href="tel:+18002118504">1-800-211-8504</a></li>
+          <li>Conroe, TX &middot; Roseburg, OR</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap disclosures">
+      <p><span class="placeholder">[LPL DISCLOSURE — replace with compliance-approved language before publishing:</span> Securities offered through LPL Financial, Member FINRA/SIPC. Investment advisory services offered through [LPL Financial, a registered investment adviser, or your RIA — confirm]. Bentley Financial Management and LPL Financial are separate entities. The individuals associated with this site may discuss and transact business only with residents of the states in which they are properly registered or licensed.<span class="placeholder">]</span></p>
+      <p>This website is for informational purposes only and does not constitute investment, tax, or legal advice, nor an offer or solicitation to buy or sell any security. Investing involves risk, including possible loss of principal. No investment strategy assures a profit or protects against loss.</p>
+      <p>&copy; 2026 Bentley Financial Management. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

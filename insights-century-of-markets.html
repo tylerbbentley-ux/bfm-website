@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A century of the market, month by month — Bentley Financial Management</title>
+  <meta name="description" content="One hundred years of U.S. stock market returns, mapped month by month — what a century of data says about Septembers, election years, sector winners under five presidents, and staying invested.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=15">
+  <style>
+    /* Century almanac — scoped styles (alm- prefix; light-only, site palette) */
+    .alm-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin: 2.4rem 0 0.4rem; }
+    @media (max-width: 1080px) { .alm-tiles { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .alm-tiles { grid-template-columns: 1fr; } }
+    .alm-tile { background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 1.4rem 1.5rem; }
+    .alm-tile .big { font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; color: var(--navy); line-height: 1.1; }
+    .alm-tile .big .up { color: #2a78d6; } .alm-tile .big .down { color: #c0392f; }
+    .alm-tile .sub { color: var(--slate); font-size: 0.86rem; line-height: 1.5; margin-top: 0.45rem; }
+    .alm-panel { background: var(--paper); border: 1px solid var(--line); padding: 1.8rem 1.9rem 1.5rem; margin: 1.4rem 0; }
+    .alm-panel h2 { font-size: 1.5rem; margin: 0 0 0.25rem; }
+    .alm-panel .cap { color: var(--slate); font-size: 0.92rem; line-height: 1.6; max-width: 88ch; margin: 0 0 1.1rem; }
+    .alm-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    @media (max-width: 1080px) { .alm-grid2 { grid-template-columns: 1fr; } }
+    .alm-grid2 .alm-panel { margin: 0; }
+    .alm-panel svg { display: block; width: 100%; height: auto; }
+    .alm-panel svg text { font-family: var(--font-body); }
+    .alm-boardwrap { overflow-x: auto; padding-bottom: 6px; }
+    .alm-board { min-width: 1000px; }
+    .alm-brow, .alm-bhead { display: flex; align-items: center; }
+    .alm-brow { height: 13px; margin-bottom: 2px; }
+    .alm-bhead { height: 16px; margin: 10px 0 3px; color: var(--slate-light); font-size: 9px; }
+    .alm-bhead:first-child { margin-top: 0; }
+    .alm-ycell { width: 46px; flex: none; font-size: 10px; color: var(--slate); text-align: right; padding-right: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .alm-bhead .alm-ycell { font-size: 9px; color: var(--slate-light); }
+    .alm-decade .alm-ycell { font-weight: 700; color: var(--navy); }
+    .alm-edot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); margin-left: 3px; vertical-align: 2px; }
+    .alm-mcell { width: 34px; height: 13px; border-radius: 2px; margin-right: 2px; flex: none; background: transparent; }
+    .alm-bhead .alm-mcell, .alm-bhead .alm-qcell, .alm-bhead .alm-acell { background: none !important; height: auto; text-align: center; }
+    .alm-qcell { width: 52px; height: 13px; border-radius: 2px; margin-right: 2px; flex: none; font-size: 9px; line-height: 13px; text-align: center; font-variant-numeric: tabular-nums; }
+    .alm-acell { width: 56px; height: 13px; border-radius: 2px; flex: none; font-size: 9.5px; line-height: 13px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .alm-gap { width: 9px; flex: none; }
+    .alm-ecell { flex: 1; min-width: 200px; font-size: 10.5px; color: var(--slate-light); padding-left: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .alm-brow:hover .alm-ecell { color: var(--slate); }
+    .alm-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 0 1rem; font-size: 0.82rem; color: var(--slate); }
+    .alm-lgstrip { display: flex; border-radius: 3px; overflow: hidden; }
+    .alm-lgelect { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-right: 5px; }
+    .alm-linelegend { display: flex; gap: 1.4rem; align-items: center; font-size: 0.82rem; color: var(--slate); margin: 0 0 0.4rem; }
+    .alm-swatch { display: inline-block; width: 16px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: 3px; }
+    .alm-preswrap { overflow-x: auto; padding-bottom: 6px; }
+    .alm-pres { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; min-width: 920px; }
+    .alm-pcol { display: flex; flex-direction: column; gap: 2px; }
+    .alm-phead { background: var(--navy); color: #fff; text-align: center; font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; padding: 0.45rem 0.3rem 0.5rem; line-height: 1.1; }
+    .alm-phead .yrs { display: block; font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.08em; color: #aab6c6; font-weight: 600; margin-top: 2px; }
+    .alm-pcell { font-size: 11.5px; padding: 5px 8px; border-radius: 2px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .alm-pcell .v { float: right; font-weight: 600; margin-left: 6px; }
+    .alm-hl { outline: 2px solid var(--gold); outline-offset: -2px; }
+    .alm-trends { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin: 0 0 1.3rem; }
+    @media (max-width: 900px) { .alm-trends { grid-template-columns: 1fr; } }
+    .alm-trend { display: grid; grid-template-columns: 30px 1fr; gap: 0.6rem; align-items: start; }
+    .alm-trend .tnum { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .alm-trend p { font-size: 0.85rem; color: var(--slate); line-height: 1.55; margin: 0; }
+    .alm-presnote { font-size: 0.78rem; color: var(--slate-light); line-height: 1.55; margin: 1rem 0 0; }
+    #alm-tip { position: fixed; z-index: 90; pointer-events: none; background: var(--navy); color: #fff; font-size: 12px; padding: 5px 9px; border-radius: 4px; white-space: nowrap; display: none; font-variant-numeric: tabular-nums; }
+    .alm-source { font-size: 0.8rem; color: var(--slate-light); line-height: 1.6; margin-top: 2rem; }
+    .alm-hover { cursor: crosshair; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="monogram">BFM</span>
+        <span class="brand-text">Bentley Financial Management</span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">Our Team</a>
+        <a href="services.html">What We Do</a>
+        <a href="philosophy.html">Our Approach</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a class="nav-cta" href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section section--ivory">
+    <div class="wrap">
+      <article class="article">
+        <p class="eyebrow">Market Perspective</p>
+        <h1>A century of the market, month by month</h1>
+        <p class="article-meta">The BFM Investment Team &middot; July 9, 2026</p>
+
+        <p>Two of the questions we hear most often are versions of the same worry: <em>&ldquo;Is now a good time to invest?&rdquo;</em> and <em>&ldquo;Should we wait until after the election?&rdquo;</em> Rather than answer with a slogan, we built the answer from the record.</p>
+
+        <p>Below is every month of U.S. stock market returns for the last one hundred years &mdash; 1,199 months, July 1926 through May 2026, covering every U.S.-listed stock with dividends reinvested &mdash; along with every quarter and every full year, and the crashes, wars, and elections marked where they happened. Explore it; every cell answers to a hover. Then read what we take from it at the bottom.</p>
+      </article>
+
+      <div class="alm-tiles">
+        <div class="alm-tile"><div class="big">$1 &rarr; $19,374</div><div class="sub">Growth of one dollar, July 1926 &ndash; May 2026, dividends reinvested. That is 10.4% a year, compounded.</div></div>
+        <div class="alm-tile"><div class="big">63%</div><div class="sub">Of all 1,199 months were positive. The average month gained just under 1%.</div></div>
+        <div class="alm-tile"><div class="big">75 of 99</div><div class="sub">Full calendar years finished higher. The worst was 1931, down 43.8%; the best was 1933, up 56.8%.</div></div>
+        <div class="alm-tile"><div class="big"><span class="up">+38.9</span> / <span class="down">&minus;28.7</span></div><div class="sub">The best month (April 1933) and the worst (September 1931) came within two years of each other, in the Depression.</div></div>
+      </div>
+
+      <div class="alm-panel">
+        <h2>What one dollar became</h2>
+        <p class="cap">The chart uses a ratio scale: each step up the left side is a tenfold gain, so equal moves mean equal percentage changes. Every crisis on this line felt like the end of the world at the time. At this distance, most are hard to find. Hover to see any month.</p>
+        <div id="alm-growth"></div>
+      </div>
+
+      <div class="alm-panel">
+        <h2>The hundred-year board</h2>
+        <p class="cap">Each cell is one month&rsquo;s return &mdash; blue for gains, red for losses, deeper color for bigger moves. The quarter columns shade on a wider scale (to &plusmn;25%) and the year column wider still (to &plusmn;45%), so their colors are not directly comparable to the months. Hover any cell for the exact figure.</p>
+        <div class="alm-legend">
+          <span>Monthly scale:</span><span>&minus;12%</span><div class="alm-lgstrip" id="alm-lgstrip"></div><span>+12%</span>
+          <span style="margin-left:14px"><span class="alm-lgelect"></span>presidential election year</span>
+        </div>
+        <div class="alm-boardwrap"><div class="alm-board" id="alm-board"></div></div>
+      </div>
+
+      <div class="alm-grid2">
+        <div class="alm-panel">
+          <h2>The monthly pattern</h2>
+          <p class="cap">Average return by calendar month, with how often that month finished higher. September is the only month that loses money on average &mdash; and the only coin flip. November and December are the most dependable. But keep the noise in view: a typical month swings 4&ndash;6 percentage points around these small averages.</p>
+          <div id="alm-monthly"></div>
+        </div>
+        <div class="alm-panel">
+          <h2>The quarterly pattern</h2>
+          <p class="cap">The fourth quarter is the standout &mdash; higher in 81 of the last 100 years, with the best average of the four. The third quarter has to carry September, and it shows.</p>
+          <div id="alm-quarterly"></div>
+        </div>
+        <div class="alm-panel">
+          <h2>The presidential cycle</h2>
+          <p class="cap">Average full-year return by year of the presidential term. The year before an election has finished higher 24 times out of 25 &mdash; the single loss was 1931, in the middle of the Depression. Midterm years have been the softest.</p>
+          <div id="alm-cycle"></div>
+        </div>
+        <div class="alm-panel">
+          <h2>How election years actually unfold</h2>
+          <p class="cap">The average path of $100 through the year. Election years run behind through spring, catch up by late summer, go flat in the two months before the vote &mdash; then finish with a strong November and December once the result is known, whichever party wins.</p>
+          <div class="alm-linelegend">
+            <span><span class="alm-swatch" style="background:var(--gold)"></span>Election years (25)</span>
+            <span><span class="alm-swatch" style="background:var(--slate-light)"></span>All years (100)</span>
+          </div>
+          <div id="alm-epath"></div>
+        </div>
+      </div>
+
+      <div class="alm-panel">
+        <h2>Sectors under five presidencies</h2>
+        <p class="cap">Average yearly return of each S&amp;P 500 sector over each presidency, ranked best to worst. The colors follow the rest of this page &mdash; blue for gains, red for losses. Hover any sector to follow it from one administration to the next.</p>
+        <div class="alm-trends">
+          <div class="alm-trend"><span class="tnum">1</span><p>Same winners, different parties. The three best sectors under Obama were the same three best under the first Trump term &mdash; and two of the three worst matched, too.</p></div>
+          <div class="alm-trend"><span class="tnum">2</span><p>Technology has been a top-three sector in four straight presidencies. In the term before those four, under Bush, it was the single worst.</p></div>
+          <div class="alm-trend"><span class="tnum">3</span><p>Energy was the best sector under both Biden and Bush &mdash; and the worst under the first Trump term. The campaign trail is not the trading floor.</p></div>
+        </div>
+        <div class="alm-preswrap"><div class="alm-pres" id="alm-pres"></div></div>
+        <p class="alm-presnote">Sector data: BlackRock, &ldquo;Student of the Market,&rdquo; from S&amp;P 500 sector returns by presidential term. Real estate became its own sector in 2016 and communication services was redefined in 2018; earlier terms follow the source&rsquo;s mapping. The Trump 2 figures are annualized from a term still in progress and will change.</p>
+      </div>
+
+      <article class="article" style="margin-top:3rem">
+        <h3>So is the calendar a signal?</h3>
+        <p>Mostly no &mdash; and usefully yes, in a few narrow places. The monthly averages are small, about 1%, while the normal swing in any given month is four to six times larger. No single month is dependable. What does hold up across a century: September is the only month that has lost money on average, November and December are the most reliable, and the fourth quarter has finished higher in 81 of the last 100 years.</p>
+        <p>The steadiest pattern is not seasonal at all &mdash; it is the presidential cycle. The year before an election has finished higher 24 times out of 25. Election years themselves end up about average; what changes is the shape. Markets hesitate in the two months before the vote, then tend to finish strong once the uncertainty clears, no matter who wins. Waiting &ldquo;until after the election&rdquo; has usually meant paying more, not less.</p>
+        <p>Just as important is what the calendar never did: it never saw a crash coming. Black Monday came in October 1987, the financial crisis broke in September 2008, and COVID hit in February 2020 &mdash; three different months, and the seasonal averages flagged none of them in advance. And 2008 was an election year in which the market lost more than a third of its value. The label protected no one.</p>
+        <h3>Keep politics out of your portfolio</h3>
+        <p>The sector table above is the strongest argument we know for separating how you vote from how you invest. The best-performing sector of the Biden years was energy &mdash; up 38% a year under a president who campaigned against fossil fuels. The worst sector of the first Trump term was also energy &mdash; down 16% a year under a president who promised to unleash it. Technology led under both parties. Markets follow earnings, interest rates, and innovation far more faithfully than they follow the party in power.</p>
+        <p>Our partners at BlackRock put it in a rule we like: <strong>KPOP &mdash; keep politics out of portfolios.</strong> Politics matter enormously in your life, your community, and your tax planning. Inside a portfolio, a century of evidence says they matter far less than the news would have you believe. The election-year chart above tells the same story: markets have rewarded the investor who stayed put through the vote, whichever way it went.</p>
+        <h3>What this means for how we invest</h3>
+        <p>We treat patterns like these as context, not commands. They can shade the timing of an addition or a trim at the margin. They are never, on their own, a reason to buy or to sell. The most important line on this page is the first one: through a depression, a world war, years of double-digit inflation, and four major crashes, one dollar became $19,374 &mdash; but only for the investor who stayed. That is the signal.</p>
+
+        <p class="alm-source">Source: monthly returns for the entire U.S. stock market &mdash; every U.S.-listed common stock, weighted by company size, with dividends reinvested &mdash; from the Center for Research in Security Prices (CRSP), via the Kenneth R. French Data Library. Quarterly and annual figures are compounded from the monthly series; 1926 begins in July and 2026 runs through May. &ldquo;Up&rdquo; percentages show how often that period finished positive. For informational purposes only; not investment advice or a recommendation to buy or sell any security. Past performance is not indicative of future results.</p>
+
+        <a class="back-link" href="insights.html">&lsaquo; Back to Insights</a>
+      </article>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="monogram">BFM</span>
+          <span class="brand-text">Bentley Financial Management</span>
+        </a>
+        <p class="footer-tag">Independent, boutique wealth management for your whole financial life.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">What We Do</a></li>
+          <li><a href="philosophy.html">Our Approach</a></li>
+          <li><a href="about.html">Our Team</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:BFM@lpl.com">BFM@lpl.com</a></li>
+          <li><a href="tel:+18002118504">1-800-211-8504</a></li>
+          <li>Conroe, TX &middot; Roseburg, OR</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap disclosures">
+      <p><span class="placeholder">[LPL DISCLOSURE — replace with compliance-approved language before publishing:</span> Securities offered through LPL Financial, Member FINRA/SIPC. Investment advisory services offered through [LPL Financial, a registered investment adviser, or your RIA — confirm]. Bentley Financial Management and LPL Financial are separate entities. The individuals associated with this site may discuss and transact business only with residents of the states in which they are properly registered or licensed.<span class="placeholder">]</span></p>
+      <p>This website is for informational purposes only and does not constitute investment, tax, or legal advice, nor an offer or solicitation to buy or sell any security. Investing involves risk, including possible loss of principal. Past performance is not indicative of future results. No investment strategy assures a profit or protects against loss.</p>
+      <p>&copy; 2026 Bentley Financial Management. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="alm-tip"></div>
+
+  <script>
+  (function(){
+  const D = {"table": [{"y": 1926, "m": [null, null, null, null, null, null, 3.11, 2.89, 0.61, -2.95, 2.85, 2.9], "q": [null, null, 6.74, 2.71], "a": null}, {"y": 1927, "m": [0.2, 4.43, 0.44, 0.72, 5.75, -2.12, 7.56, 2.27, 4.98, -4.04, 6.73, 2.31], "q": [5.1, 4.25, 15.48, 4.78], "a": 32.58}, {"y": 1928, "m": [-0.32, -1.36, 9.08, 4.47, 1.84, -4.59, 0.95, 7.01, 3.14, 1.72, 12.2, 0.46], "q": [7.25, 1.51, 11.42, 14.65], "a": 39.08}, {"y": 1929, "m": [5.0, 0.02, -0.51, 1.83, -5.94, 10.22, 4.81, 8.54, -5.1, -19.61, -12.5, 1.65], "q": [4.49, 5.57, 7.96, -28.5], "a": -14.85}, {"y": 1930, "m": [5.75, 2.8, 7.44, -1.84, -1.4, -15.81, 4.32, 0.39, -12.59, -8.69, -2.91, -7.72], "q": [16.8, -18.52, -8.46, -18.19], "a": -28.73}, {"y": 1931, "m": [6.4, 10.92, -6.22, -9.92, -13.2, 14.01, -6.57, 0.43, -28.71, 8.09, -8.97, -13.4], "q": [10.68, -10.86, -33.11, -14.79], "a": -43.76}, {"y": 1932, "m": [-1.34, 5.68, -11.14, -17.83, -20.45, -0.75, 33.63, 37.15, -2.91, -13.13, -5.86, 4.43], "q": [-7.35, -35.12, 77.94, -14.6], "a": -8.66}, {"y": 1933, "m": [1.25, -15.32, 3.1, 38.91, 21.47, 13.12, -9.62, 12.07, -10.63, -8.35, 9.99, 1.84], "q": [-11.6, 90.87, -9.48, 2.66], "a": 56.8}, {"y": 1934, "m": [12.65, -2.49, 0.11, -1.78, -7.25, 2.72, -10.93, 5.59, -0.23, -1.65, 8.34, 0.37], "q": [9.97, -6.42, -6.17, 6.95], "a": 3.26}, {"y": 1935, "m": [-3.45, -1.94, -3.7, 9.07, 3.47, 5.94, 7.55, 2.66, 2.63, 7.04, 4.89, 4.56], "q": [-8.83, 19.56, 13.31, 17.39], "a": 45.0}, {"y": 1936, "m": [6.9, 2.5, 0.98, -8.12, 5.21, 2.43, 6.69, 1.01, 0.98, 7.12, 3.27, 0.2], "q": [10.65, -0.98, 8.82, 10.84], "a": 32.15}, {"y": 1937, "m": [3.36, 1.1, -0.25, -7.33, -0.77, -4.2, 8.94, -4.86, -13.58, -9.57, -8.31, -4.29], "q": [4.24, -11.91, -10.43, -20.64], "a": -34.73}, {"y": 1938, "m": [0.48, 5.85, -23.92, 14.49, -3.86, 23.89, 7.32, -2.68, 0.85, 7.81, -1.8, 4.16], "q": [-19.08, 36.37, 5.33, 10.27], "a": 28.17}, {"y": 1939, "m": [-5.98, 3.52, -12.04, -0.18, 6.82, -5.32, 10.22, -6.69, 16.9, -0.53, -3.65, 2.93], "q": [-14.39, 0.96, 20.23, -1.35], "a": 2.51}, {"y": 1940, "m": [-2.41, 1.44, 2.05, 0.22, -22.02, 6.69, 3.18, 2.2, 2.39, 3.03, -1.65, 0.69], "q": [1.02, -16.62, 7.97, 2.03], "a": -7.21}, {"y": 1941, "m": [-4.19, -1.44, 0.85, -5.47, 1.37, 5.83, 5.9, -0.16, -0.87, -5.26, -1.95, -4.87], "q": [-4.77, 1.41, 4.81, -11.63], "a": -10.55}, {"y": 1942, "m": [0.81, -2.45, -6.59, -4.36, 5.99, 2.7, 3.54, 1.83, 2.65, 6.85, 0.16, 5.17], "q": [-8.14, 4.11, 8.23, 12.55], "a": 16.49}, {"y": 1943, "m": [7.16, 6.19, 6.06, 0.84, 5.77, 1.85, -4.75, 1.33, 2.43, -1.12, -5.9, 6.4], "q": [20.69, 8.63, -1.14, -1.0], "a": 28.32}, {"y": 1944, "m": [1.77, 0.4, 2.48, -1.66, 5.11, 5.54, -1.46, 1.59, 0.04, 0.19, 1.74, 4.06], "q": [4.71, 9.09, 0.15, 6.07], "a": 21.34}, {"y": 1945, "m": [2.04, 6.25, -3.89, 7.83, 1.77, 0.41, -2.14, 6.25, 4.8, 3.92, 5.42, 1.22], "q": [4.2, 10.19, 8.97, 10.89], "a": 38.74}, {"y": 1946, "m": [6.27, -5.81, 5.91, 4.26, 3.97, -3.86, -2.66, -6.43, -10.15, -1.41, 0.01, 5.0], "q": [6.01, 4.21, -18.16, 3.53], "a": -6.4}, {"y": 1947, "m": [1.28, -1.06, -1.65, -4.77, -0.93, 5.33, 4.16, -1.71, -0.48, 2.53, -1.93, 3.09], "q": [-1.45, -0.63, 1.89, 3.66], "a": 3.43}, {"y": 1948, "m": [-3.86, -4.31, 8.2, 3.73, 7.4, -0.02, -5.0, 0.33, -2.95, 6.0, -9.3, 3.3], "q": [-0.46, 11.38, -7.5, -0.69], "a": 1.86}, {"y": 1949, "m": [0.33, -2.84, 4.15, -1.78, -2.88, 0.2, 5.63, 2.68, 3.18, 3.23, 1.89, 5.23], "q": [1.53, -4.42, 11.91, 10.68], "a": 20.2}, {"y": 1950, "m": [1.79, 1.57, 1.36, 4.03, 4.42, -5.86, 1.47, 4.96, 4.92, -0.07, 2.85, 5.68], "q": [4.79, 2.26, 11.74, 8.62], "a": 30.07}, {"y": 1951, "m": [5.83, 1.5, -2.05, 4.99, -2.24, -2.51, 7.08, 4.42, 0.82, -2.37, 0.69, 3.45], "q": [5.22, 0.06, 12.73, 1.7], "a": 20.69}, {"y": 1952, "m": [1.6, -2.52, 4.55, -4.85, 3.33, 3.99, 1.06, -0.62, -1.88, -0.52, 6.06, 3.09], "q": [3.55, 2.24, -1.45, 8.77], "a": 13.47}, {"y": 1953, "m": [-0.18, -0.13, -1.26, -2.67, 0.68, -1.71, 2.55, -4.39, 0.37, 4.73, 2.92, 0.15], "q": [-1.57, -3.68, -1.59, 7.95], "a": 0.72}, {"y": 1954, "m": [5.24, 1.74, 3.74, 4.36, 3.15, 1.14, 5.05, -2.3, 6.49, -1.6, 9.47, 5.57], "q": [11.08, 8.87, 9.29, 13.72], "a": 50.31}, {"y": 1955, "m": [0.68, 3.11, -0.05, 3.21, 1.08, 6.65, 1.99, 0.38, -0.21, -2.49, 7.21, 1.67], "q": [3.76, 11.26, 2.16, 6.29], "a": 25.36}, {"y": 1956, "m": [-2.81, 3.97, 6.79, 0.47, -4.99, 3.67, 5.06, -3.02, -4.96, 0.77, 0.55, 3.4], "q": [7.91, -1.04, -3.17, 4.77], "a": 8.34}, {"y": 1957, "m": [-3.3, -1.83, 2.36, 4.51, 3.72, -0.51, 0.96, -4.87, -5.73, -4.03, 2.59, -3.66], "q": [-2.83, 7.84, -9.46, -5.15], "a": -10.0}, {"y": 1958, "m": [4.93, -1.41, 3.36, 3.17, 2.43, 2.96, 4.46, 1.94, 4.85, 2.71, 3.12, 5.38], "q": [6.93, 8.81, 11.65, 11.61], "a": 44.98}, {"y": 1959, "m": [0.92, 1.14, 0.5, 3.86, 1.95, 0.0, 3.43, -1.19, -4.5, 1.58, 1.86, 2.8], "q": [2.58, 5.89, -2.4, 6.37], "a": 12.76}, {"y": 1960, "m": [-6.65, 1.45, -1.28, -1.52, 3.39, 2.32, -2.24, 3.17, -5.84, -0.49, 4.82, 4.89], "q": [-6.51, 4.18, -5.03, 9.41], "a": 1.2}, {"y": 1961, "m": [6.39, 3.71, 3.09, 0.46, 2.58, -2.88, 3.01, 2.71, -1.98, 2.77, 4.6, 0.02], "q": [13.75, 0.08, 3.71, 7.52], "a": 26.94}, {"y": 1962, "m": [-3.63, 2.01, -0.48, -6.37, -8.42, -8.3, 6.54, 2.36, -5.01, 0.21, 11.09, 1.24], "q": [-2.16, -21.37, 3.59, 12.7], "a": -10.19}, {"y": 1963, "m": [5.19, -2.17, 3.31, 4.76, 2.0, -1.77, -0.12, 5.33, -1.3, 2.83, -0.59, 2.12], "q": [6.31, 4.96, 3.84, 4.39], "a": 20.96}, {"y": 1964, "m": [2.54, 1.81, 1.72, 0.39, 1.67, 1.57, 2.04, -1.16, 2.97, 0.89, 0.28, 0.35], "q": [6.19, 3.67, 3.85, 1.53], "a": 16.07}, {"y": 1965, "m": [3.82, 0.74, -0.98, 3.42, -0.47, -5.16, 1.75, 3.06, 3.17, 2.91, 0.32, 1.34], "q": [3.56, -2.38, 8.19, 4.62], "a": 14.44}, {"y": 1966, "m": [1.1, -0.86, -2.13, 2.47, -5.26, -1.06, -1.28, -7.53, -0.66, 4.31, 1.78, 0.53], "q": [-1.9, -3.95, -9.32, 6.73], "a": -8.81}, {"y": 1967, "m": [8.58, 1.13, 4.38, 4.21, -3.99, 2.69, 4.9, -0.59, 3.42, -2.69, 0.73, 3.38], "q": [14.62, 2.74, 7.85, 1.33], "a": 28.7}, {"y": 1968, "m": [-3.63, -3.35, 0.59, 9.45, 2.73, 1.13, -2.21, 1.77, 4.48, 0.87, 5.85, -3.5], "q": [-6.31, 13.71, 3.98, 3.03], "a": 14.14}, {"y": 1969, "m": [-0.72, -5.4, 3.12, 1.99, 0.39, -6.68, -6.47, 5.19, -2.35, 5.66, -3.28, -1.99], "q": [-3.15, -4.45, -3.93, 0.16], "a": -10.95}, {"y": 1970, "m": [-7.5, 5.76, -0.49, -10.49, -6.37, -5.22, 7.44, 5.03, 4.72, -1.81, 5.08, 6.16], "q": [-2.65, -20.57, 18.17, 9.53], "a": 0.09}, {"y": 1971, "m": [5.21, 1.74, 4.42, 3.43, -3.7, 0.28, -4.09, 4.26, -0.49, -4.05, -0.09, 9.08], "q": [11.77, -0.12, -0.49, 4.57], "a": 16.16}, {"y": 1972, "m": [2.76, 3.12, 0.89, 0.58, 1.59, -2.14, -0.49, 3.56, -0.8, 0.92, 4.97, 0.99], "q": [6.91, -0.01, 2.23, 6.98], "a": 16.92}, {"y": 1973, "m": [-2.83, -4.43, -0.84, -5.16, -2.46, -1.06, 5.68, -3.12, 5.42, -0.18, -12.22, 1.23], "q": [-7.91, -8.47, 7.93, -11.3], "a": -19.31}, {"y": 1974, "m": [0.47, 0.12, -2.26, -4.53, -3.95, -2.24, -7.36, -8.79, -10.98, 16.62, -3.99, -2.74], "q": [-1.68, -10.36, -24.78, 8.9], "a": -27.8}, {"y": 1975, "m": [14.25, 5.99, 3.07, 4.66, 5.64, 5.28, -6.12, -2.36, -3.73, 5.88, 3.06, -1.12], "q": [24.81, 16.4, -11.75, 7.9], "a": 38.33}, {"y": 1976, "m": [12.62, 0.65, 2.72, -1.07, -0.97, 4.49, -0.59, -0.15, 2.5, -2.01, 0.76, 6.05], "q": [16.44, 2.37, 1.74, 4.71], "a": 26.98}, {"y": 1977, "m": [-3.67, -1.59, -0.97, 0.53, -1.1, 5.12, -1.27, -1.32, 0.16, -3.9, 4.5, 0.76], "q": [-6.12, 4.51, -2.42, 1.19], "a": -3.12}, {"y": 1978, "m": [-5.51, -0.93, 3.38, 8.41, 2.27, -1.15, 5.68, 4.34, -0.82, -11.22, 3.41, 1.65], "q": [-3.22, 9.6, 9.36, -6.68], "a": 8.25}, {"y": 1979, "m": [4.99, -2.83, 6.48, 0.73, -1.38, 4.65, 1.6, 6.31, 0.0, -7.23, 6.21, 2.73], "q": [8.63, 3.96, 8.01, 1.22], "a": 23.47}, {"y": 1980, "m": [6.3, -0.34, -11.69, 5.21, 6.07, 3.59, 7.04, 2.39, 2.94, 1.99, 10.56, -3.15], "q": [-6.45, 15.6, 12.82, 9.21], "a": 33.25}, {"y": 1981, "m": [-4.02, 1.68, 4.88, -1.08, 1.28, -0.99, -0.31, -5.74, -5.95, 6.13, 4.47, -2.76], "q": [2.35, -0.81, -11.62, 7.81], "a": -3.26}, {"y": 1982, "m": [-2.43, -4.94, -0.84, 4.37, -2.87, -2.12, -2.15, 11.99, 1.82, 11.89, 5.31, 1.23], "q": [-8.03, -0.77, 11.58, 19.28], "a": 21.46}, {"y": 1983, "m": [4.28, 3.21, 3.44, 7.37, 1.2, 3.74, -3.32, 0.26, 1.68, -2.67, 2.87, -1.04], "q": [11.33, 12.72, -1.44, -0.92], "a": 22.55}, {"y": 1984, "m": [-1.16, -4.06, 1.38, 0.3, -5.2, 2.56, -1.9, 11.1, 0.06, 0.16, -1.04, 2.48], "q": [-3.86, -2.48, 9.05, 1.58], "a": 3.85}, {"y": 1985, "m": [8.62, 1.8, -0.21, -0.24, 5.73, 1.82, -0.1, -0.46, -3.91, 4.65, 7.07, 4.53], "q": [10.34, 7.4, -4.45, 17.12], "a": 32.62}, {"y": 1986, "m": [1.21, 7.67, 5.51, -0.76, 5.11, 1.58, -5.91, 6.53, -8.14, 5.1, 1.56, -2.77], "q": [14.98, 5.96, -7.92, 3.78], "a": 16.42}, {"y": 1987, "m": [12.87, 4.81, 2.1, -1.65, 0.49, 4.39, 4.3, 3.99, -2.13, -22.59, -7.41, 7.21], "q": [20.78, 3.17, 6.15, -23.16], "a": 1.64}, {"y": 1988, "m": [4.5, 5.23, -1.82, 1.03, 0.24, 5.27, -0.74, -2.72, 3.93, 1.77, -1.7, 2.11], "q": [7.96, 6.61, 0.35, 2.15], "a": 17.99}, {"y": 1989, "m": [6.62, -1.62, 2.24, 5.02, 4.07, -0.62, 7.88, 2.17, -0.11, -2.97, 1.73, 1.79], "q": [7.24, 8.62, 10.1, 0.48], "a": 28.86}, {"y": 1990, "m": [-7.23, 1.69, 2.47, -2.67, 9.11, -0.46, -1.22, -9.46, -5.51, -1.24, 6.92, 3.06], "q": [-3.33, 5.71, -15.49, 8.83], "a": -6.02}, {"y": 1991, "m": [5.21, 7.67, 3.1, 0.25, 4.13, -4.52, 4.73, 2.78, -1.13, 1.71, -3.81, 11.23], "q": [16.79, -0.33, 6.43, 8.82], "a": 34.82}, {"y": 1992, "m": [-0.25, 1.36, -2.31, 1.41, 0.58, -2.01, 4.09, -2.12, 1.45, 1.25, 4.37, 1.81], "q": [-1.23, -0.05, 3.36, 7.59], "a": 9.78}, {"y": 1993, "m": [1.16, 0.34, 2.57, -2.81, 3.11, 0.55, -0.1, 3.97, 0.14, 1.64, -1.62, 1.88], "q": [4.11, 0.76, 4.01, 1.87], "a": 11.16}, {"y": 1994, "m": [3.12, -2.34, -4.52, 0.95, 0.9, -2.73, 3.1, 4.39, -1.91, 1.73, -3.66, 1.3], "q": [-3.84, -0.92, 5.57, -0.72], "a": -0.15}, {"y": 1995, "m": [2.22, 4.03, 2.65, 2.55, 3.44, 3.19, 4.16, 1.02, 3.79, -1.04, 4.38, 1.53], "q": [9.16, 9.46, 9.21, 4.87], "a": 36.85}, {"y": 1996, "m": [2.69, 1.72, 1.13, 2.52, 2.78, -0.73, -5.51, 3.18, 5.45, 1.29, 6.66, -1.24], "q": [5.64, 4.6, 2.81, 6.7], "a": 21.21}, {"y": 1997, "m": [5.41, -0.09, -4.59, 4.47, 7.22, 4.47, 7.74, -3.69, 5.78, -3.38, 3.38, 1.81], "q": [0.48, 17.02, 9.76, 1.69], "a": 31.25}, {"y": 1998, "m": [0.58, 7.42, 5.15, 1.17, -2.67, 3.6, -2.02, -15.62, 6.65, 7.3, 6.38, 6.53], "q": [13.61, 2.01, -11.83, 21.6], "a": 24.26}, {"y": 1999, "m": [3.83, -3.73, 3.91, 4.71, -2.12, 5.17, -3.11, -0.98, -2.38, 6.48, 3.77, 8.1], "q": [3.87, 7.79, -6.34, 19.44], "a": 25.24}, {"y": 2000, "m": [-4.33, 2.89, 5.68, -5.93, -3.89, 5.08, -2.0, 7.53, -4.93, -2.22, -10.19, 1.68], "q": [4.03, -5.0, 0.18, -10.71], "a": -11.59}, {"y": 2001, "m": [3.79, -9.65, -6.83, 8.32, 1.0, -1.66, -1.83, -6.09, -8.96, 2.7, 7.7, 1.76], "q": [-12.63, 7.59, -16.07, 12.55], "a": -11.2}, {"y": 2002, "m": [-1.3, -2.17, 4.37, -5.06, -1.22, -7.1, -8.04, 0.64, -10.2, 7.98, 6.08, -5.65], "q": [0.78, -12.88, -16.89, 8.07], "a": -21.14}, {"y": 2003, "m": [-2.47, -1.79, 1.19, 8.28, 6.14, 1.52, 2.4, 2.4, -1.16, 6.15, 1.42, 4.37], "q": [-3.08, 16.68, 3.64, 12.36], "a": 31.69}, {"y": 2004, "m": [2.22, 1.46, -1.23, -1.73, 1.24, 1.93, -3.94, 0.18, 1.71, 1.53, 4.68, 3.58], "q": [2.44, 1.41, -2.12, 10.09], "a": 11.93}, {"y": 2005, "m": [-2.59, 2.04, -1.73, -2.4, 3.89, 0.81, 4.16, -0.9, 0.77, -1.77, 3.92, 0.08], "q": [-2.32, 2.22, 4.02, 2.16], "a": 6.1}, {"y": 2006, "m": [3.38, 0.04, 1.84, 1.09, -3.13, 0.05, -0.37, 2.45, 2.25, 3.63, 2.12, 1.25], "q": [5.32, -2.03, 4.37, 7.15], "a": 15.4}, {"y": 2007, "m": [1.82, -1.58, 1.14, 3.93, 3.64, -1.56, -3.32, 1.36, 3.54, 2.11, -4.46, -0.6], "q": [1.35, 6.03, 1.46, -3.03], "a": 5.74}, {"y": 2008, "m": [-6.12, -2.96, -0.77, 4.79, 2.05, -8.26, -0.6, 1.66, -9.2, -17.12, -7.71, 1.77], "q": [-9.6, -1.89, -8.25, -22.16], "a": -36.66}, {"y": 2009, "m": [-8.09, -10.13, 9.03, 10.18, 5.21, 0.43, 7.75, 3.34, 4.09, -2.53, 5.63, 2.81], "q": [-9.94, 16.42, 15.9, 5.85], "a": 28.63}, {"y": 2010, "m": [-3.35, 3.39, 6.31, 2.0, -7.89, -5.55, 6.93, -4.77, 9.56, 3.88, 0.6, 6.83], "q": [6.23, -11.26, 11.56, 11.64], "a": 17.41}, {"y": 2011, "m": [1.99, 3.49, 0.46, 2.9, -1.27, -1.74, -2.35, -5.95, -7.58, 11.33, -0.27, 0.75], "q": [6.03, -0.17, -15.12, 11.86], "a": 0.5}, {"y": 2012, "m": [5.05, 4.42, 3.12, -0.85, -6.16, 3.89, 0.79, 2.55, 2.74, -1.75, 0.79, 1.19], "q": [13.12, -3.34, 6.19, 0.2], "a": 16.35}, {"y": 2013, "m": [5.57, 1.28, 4.04, 1.56, 2.8, -1.2, 5.65, -2.71, 3.77, 4.17, 3.11, 2.81], "q": [11.24, 3.15, 6.66, 10.43], "a": 35.15}, {"y": 2014, "m": [-3.32, 4.66, 0.43, -0.18, 2.05, 2.6, -2.03, 4.24, -1.96, 2.51, 2.56, -0.05], "q": [1.62, 4.51, 0.12, 5.08], "a": 11.74}, {"y": 2015, "m": [-3.1, 6.13, -1.11, 0.59, 1.37, -1.52, 1.57, -6.02, -3.06, 7.75, 0.57, -2.14], "q": [1.7, 0.42, -7.47, 6.05], "a": 0.21}, {"y": 2016, "m": [-5.73, -0.04, 6.97, 0.93, 1.79, -0.01, 3.96, 0.51, 0.29, -1.99, 4.87, 1.84], "q": [0.8, 2.73, 4.79, 4.67], "a": 13.58}, {"y": 2017, "m": [1.98, 3.59, 0.2, 1.13, 1.13, 0.85, 1.95, 0.27, 2.58, 2.35, 3.2, 1.15], "q": [5.85, 3.14, 4.86, 6.84], "a": 22.32}, {"y": 2018, "m": [5.69, -3.53, -2.23, 0.41, 2.8, 0.63, 3.36, 3.61, 0.21, -7.46, 1.89, -9.36], "q": [-0.31, 3.87, 7.32, -14.54], "a": -5.03}, {"y": 2019, "m": [8.58, 3.6, 1.29, 4.18, -6.71, 7.17, 1.42, -2.39, 1.59, 2.22, 3.99, 2.91], "q": [13.94, 4.16, 0.57, 9.39], "a": 30.56}, {"y": 2020, "m": [0.02, -8.03, -13.25, 13.6, 5.58, 2.46, 5.84, 7.63, -3.63, -2.07, 12.46, 4.64], "q": [-20.2, 22.89, 9.78, 15.24], "a": 24.07}, {"y": 2021, "m": [-0.07, 2.81, 3.17, 4.95, 0.3, 2.74, 1.34, 2.94, -4.4, 6.63, -1.58, 3.24], "q": [5.99, 8.15, -0.27, 8.35], "a": 23.86}, {"y": 2022, "m": [-6.16, -2.28, 3.08, -9.41, -0.31, -8.34, 9.65, -3.58, -9.15, 8.08, 4.94, -6.05], "q": [-5.48, -17.22, -3.95, 6.56], "a": -19.92}, {"y": 2023, "m": [6.96, -2.23, 2.84, 0.97, 0.7, 6.86, 3.66, -1.91, -4.8, -2.68, 9.32, 5.28], "q": [7.54, 8.65, -3.2, 12.01], "a": 26.69}, {"y": 2024, "m": [1.2, 5.49, 3.27, -4.18, 4.77, 3.21, 1.67, 2.08, 2.12, -0.61, 6.89, -2.8], "q": [10.25, 3.61, 5.98, 3.26], "a": 25.02}, {"y": 2025, "m": [3.17, -2.11, -6.05, -0.49, 6.44, 5.2, 2.32, 2.22, 3.72, 2.33, 0.17, -0.02], "q": [-5.12, 11.43, 8.48, 2.48], "a": 17.54}, {"y": 2026, "m": [1.33, -0.89, -4.89, 10.24, 5.21, null, null, null, null, null, null, null], "q": [-4.48, null, null, null], "a": null}], "mstats": [{"mean": 1.48, "median": 1.31, "win": 65, "best": [1975, 14.25], "worst": [2009, -8.09], "std": 4.72, "n": 100}, {"mean": 0.55, "median": 1.11, "win": 58, "best": [1931, 10.92], "worst": [1933, -15.32], "std": 4.08, "n": 100}, {"mean": 0.63, "median": 1.24, "win": 63, "best": [1928, 9.08], "worst": [1938, -23.92], "std": 4.94, "n": 100}, {"mean": 1.41, "median": 0.96, "win": 65, "best": [1933, 38.91], "worst": [1932, -17.83], "std": 6.33, "n": 100}, {"mean": 0.65, "median": 1.37, "win": 65, "best": [1933, 21.47], "worst": [1940, -22.02], "std": 5.54, "n": 100}, {"mean": 0.97, "median": 0.81, "win": 58, "best": [1938, 23.89], "worst": [1930, -15.81], "std": 5.1, "n": 99}, {"mean": 1.7, "median": 1.71, "win": 60, "best": [1932, 33.63], "worst": [1934, -10.93], "std": 5.55, "n": 100}, {"mean": 1.15, "median": 1.48, "win": 63, "best": [1932, 37.15], "worst": [1998, -15.62], "std": 5.82, "n": 100}, {"mean": -0.77, "median": 0.05, "win": 51, "best": [1939, 16.9], "worst": [1931, -28.71], "std": 5.72, "n": 100}, {"mean": 0.45, "median": 1.08, "win": 57, "best": [1974, 16.62], "worst": [1987, -22.59], "std": 6.04, "n": 100}, {"mean": 1.8, "median": 2.58, "win": 72, "best": [2020, 12.46], "worst": [1929, -12.5], "std": 5.12, "n": 100}, {"mean": 1.57, "median": 1.78, "win": 78, "best": [1991, 11.23], "worst": [1931, -13.4], "std": 3.75, "n": 100}], "qstats": [{"mean": 2.71, "median": 3.66, "win": 63, "best": [1975, 24.81], "worst": [2020, -20.2], "std": 8.47, "n": 100}, {"mean": 3.18, "median": 3.14, "win": 66, "best": [1933, 90.87], "worst": [1932, -35.12], "std": 13.2, "n": 99}, {"mean": 2.26, "median": 3.67, "win": 64, "best": [1932, 77.94], "worst": [1931, -33.11], "std": 12.05, "n": 100}, {"mean": 3.91, "median": 5.46, "win": 81, "best": [1998, 21.6], "worst": [1929, -28.5], "std": 9.25, "n": 100}], "cstats": {"election": {"mean": 12.18, "median": 14.14, "win": 84, "n": 25}, "post-election": {"mean": 11.09, "median": 14.44, "win": 64, "n": 25}, "midterm": {"mean": 6.42, "median": 5.75, "win": 58, "n": 24}, "pre-election": {"mean": 18.84, "median": 23.47, "win": 96, "n": 25}}, "epath": [0.46, 0.66, 0.72, 0.05, -0.25, 1.65, 1.97, 3.47, 0.0, -0.5, 2.17, 1.69], "allpath": [1.48, 0.55, 0.63, 1.41, 0.65, 0.97, 1.7, 1.15, -0.77, 0.45, 1.8, 1.57], "growth": 19374};
+  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const MSHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const MLETTER = ["J","F","M","A","M","J","J","A","S","O","N","D"];
+  const EVENTS = {
+    1929:"Black Tuesday — the Crash (Oct)", 1931:"Depression's worst year — down 44%",
+    1932:"Depression bottom (summer)", 1933:"New Deal rebound — best year on record",
+    1937:"Fed tightens too soon — sharp relapse", 1939:"WWII begins in Europe (Sep)",
+    1941:"Pearl Harbor (Dec)", 1942:"Wartime low (Apr) — long bull begins",
+    1946:"Postwar slump", 1950:"Korean War begins (Jun)",
+    1962:"Cuban Missile Crisis (Oct)", 1963:"JFK assassinated (Nov)",
+    1973:"OPEC oil embargo (Oct)", 1974:"Stagflation bear bottoms (Oct)",
+    1979:"Volcker era begins — the inflation fight", 1982:"Great bull market begins (Aug)",
+    1987:"Black Monday — a 23% October", 1990:"Gulf War, S&L crisis",
+    1998:"Russia default & LTCM scare (Aug)", 2000:"Dot-com peak (Mar)",
+    2001:"9/11 — markets closed four days (Sep)", 2002:"Dot-com bear bottoms (Oct)",
+    2008:"Lehman fails (Sep) — financial crisis", 2009:"Crisis bottom (Mar) — new bull begins",
+    2011:"U.S. credit downgrade (Aug)", 2016:"Brexit (Jun); Trump elected (Nov)",
+    2018:"Rate-hike scare (Q4)", 2020:"COVID crash — fastest 30% drop ever",
+    2022:"Inflation peaks at 9% — Fed hikes, bear market", 2023:"AI rally begins",
+    2025:"Spring tariff shock, fast rebound", 2026:"This year — through May"
+  };
+  const POS = ["#f0efec","#cde2fb","#86b6ef","#3987e5","#1c5cab","#0d366b"];
+  const NEG = ["#f0efec","#f5c6c3","#e88a86","#e34948","#b52a29","#7f1d1c"];
+  const NAVY = "#12243b", GOLD = "#a67c34", SLATE = "#5c6675", SLATE_L = "#8a94a3", LINE = "#e6e1d6", INK = "#1f2530";
+  const BLUE = "#2a78d6", RED = "#c0392f";
+  function hex2rgb(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  function rampColor(v, clamp){
+    const arm = v>=0 ? POS : NEG;
+    let t = Math.min(Math.abs(v)/clamp, 1) * (arm.length-1);
+    const i = Math.min(Math.floor(t), arm.length-2), f = t-i;
+    const a = hex2rgb(arm[i]), b = hex2rgb(arm[i+1]);
+    return "rgb("+Math.round(lerp(a[0],b[0],f))+","+Math.round(lerp(a[1],b[1],f))+","+Math.round(lerp(a[2],b[2],f))+")";
+  }
+  function inkFor(rgbStr){
+    const m = rgbStr.match(/\d+/g).map(Number);
+    return ((0.2126*m[0] + 0.7152*m[1] + 0.0722*m[2]) / 255) > 0.52 ? INK : "#ffffff";
+  }
+  function fmtPct(v, dp){ return (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(dp===undefined?1:dp) + "%"; }
+  function el(cls, tag){ const d = document.createElement(tag||"div"); if(cls) d.className = cls; return d; }
+  function svgEl(tag, attrs){
+    const n = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function txt(n, s){ n.textContent = s; return n; }
+
+  const tip = document.getElementById("alm-tip");
+  document.addEventListener("mousemove", e => {
+    const t = e.target.closest ? e.target.closest("[data-tip]") : null;
+    if (t){
+      tip.textContent = t.getAttribute("data-tip");
+      tip.style.display = "block";
+      tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + "px";
+      tip.style.top = Math.max(e.clientY - 34, 8) + "px";
+    } else if (!tip.dataset.hold) tip.style.display = "none";
+  });
+
+  /* board */
+  function headerRow(){
+    const r = el("alm-bhead");
+    r.appendChild(el("alm-ycell"));
+    MLETTER.forEach(l => r.appendChild(txt(el("alm-mcell"), l)));
+    r.appendChild(el("alm-gap"));
+    for (let q=1;q<=4;q++) r.appendChild(txt(el("alm-qcell"), "Q"+q));
+    r.appendChild(el("alm-gap"));
+    r.appendChild(txt(el("alm-acell"), "Year"));
+    r.appendChild(el("alm-ecell"));
+    return r;
+  }
+  function buildBoard(){
+    const host = document.getElementById("alm-board");
+    const frag = document.createDocumentFragment();
+    let dec = -1;
+    for (const row of D.table){
+      const d = Math.floor(row.y/10);
+      if (d !== dec){ dec = d; frag.appendChild(headerRow()); }
+      const r = el("alm-brow" + (row.y%10===0 ? " alm-decade" : ""));
+      const yc = el("alm-ycell"); yc.textContent = row.y;
+      if (row.y % 4 === 0) yc.appendChild(el("alm-edot","span"));
+      r.appendChild(yc);
+      row.m.forEach((v,i) => {
+        const c = el("alm-mcell");
+        if (v !== null){
+          c.style.background = rampColor(v, 12);
+          c.setAttribute("data-tip", MONTHS[i]+" "+row.y+" · "+fmtPct(v));
+        }
+        r.appendChild(c);
+      });
+      r.appendChild(el("alm-gap"));
+      row.q.forEach((v,i) => {
+        const c = el("alm-qcell");
+        if (v !== null){
+          const bg = rampColor(v, 25);
+          c.style.background = bg; c.style.color = inkFor(bg);
+          c.textContent = (v>0?"+":"−") + Math.abs(v).toFixed(1);
+          c.setAttribute("data-tip", "Q"+(i+1)+" "+row.y+" · "+fmtPct(v));
+        }
+        r.appendChild(c);
+      });
+      r.appendChild(el("alm-gap"));
+      const a = el("alm-acell");
+      if (row.a !== null){
+        const bg = rampColor(row.a, 45);
+        a.style.background = bg; a.style.color = inkFor(bg);
+        a.textContent = (row.a>0?"+":"−") + Math.abs(row.a).toFixed(1);
+        a.setAttribute("data-tip", row.y+" full year · "+fmtPct(row.a));
+      }
+      r.appendChild(a);
+      const ec = el("alm-ecell");
+      ec.textContent = EVENTS[row.y] || "";
+      if (EVENTS[row.y]) ec.title = EVENTS[row.y];
+      r.appendChild(ec);
+      frag.appendChild(r);
+    }
+    host.appendChild(frag);
+    const strip = document.getElementById("alm-lgstrip");
+    for (let i=0;i<=16;i++){
+      const s = el(""); s.style.background = rampColor(-12 + i*1.5, 12); s.style.width="11px"; s.style.height="12px";
+      strip.appendChild(s);
+    }
+  }
+
+  /* growth of $1 */
+  function buildGrowth(){
+    const host = document.getElementById("alm-growth");
+    const W=1000, H=380, L=56, R=76, T=46, B=34;
+    const svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H, class:"alm-hover", role:"img",
+      "aria-label":"Growth of one dollar invested in the U.S. market, 1926 to 2026, ratio scale, ending at 19,374 dollars"});
+    const series=[]; let g=1;
+    for (const row of D.table) row.m.forEach((v,i)=>{ if(v!==null){ g*=1+v/100; series.push({t:row.y+(i+0.5)/12, v:g, y:row.y, mi:i}); } });
+    const t0=series[0].t, t1=series[series.length-1].t;
+    let vmin=Infinity; series.forEach(p=>{ if(p.v<vmin) vmin=p.v; });
+    const lmin=Math.log10(vmin)-0.15, lmax=Math.log10(series[series.length-1].v)+0.25;
+    const X=t=>L+(t-t0)/(t1-t0)*(W-L-R);
+    const Y=v=>T+(1-(Math.log10(v)-lmin)/(lmax-lmin))*(H-T-B);
+    [[1,"$1"],[10,"$10"],[100,"$100"],[1000,"$1k"],[10000,"$10k"]].forEach(tk=>{
+      svg.appendChild(svgEl("line",{x1:L,x2:W-R,y1:Y(tk[0]),y2:Y(tk[0]),stroke:LINE,"stroke-width":1}));
+      svg.appendChild(txt(svgEl("text",{x:L-8,y:Y(tk[0])+4,"text-anchor":"end","font-size":11,fill:SLATE_L}),tk[1]));
+    });
+    for (let yr=1930; yr<=2020; yr+=10){
+      svg.appendChild(txt(svgEl("text",{x:X(yr),y:H-10,"text-anchor":"middle","font-size":11,fill:SLATE_L}),yr));
+    }
+    svg.appendChild(svgEl("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,stroke:LINE,"stroke-width":1}));
+    let pts="";
+    series.forEach(p=>{ pts += X(p.t).toFixed(1)+","+Y(p.v).toFixed(1)+" "; });
+    svg.appendChild(svgEl("polyline",{points:pts,fill:"none",stroke:NAVY,"stroke-width":2,"stroke-linejoin":"round"}));
+    const FLAGS=[
+      {t:1929.79,l:"1929 Crash",o:1},{t:1932.45,l:"Depression bottom",o:2},
+      {t:1942.30,l:"WWII low",o:1},{t:1973.80,l:"Oil embargo",o:1},
+      {t:1982.60,l:"Bull market begins",o:1},{t:1987.80,l:"Black Monday",o:3},
+      {t:2000.20,l:"Dot-com peak",o:1},{t:2009.20,l:"Crisis bottom",o:3},{t:2020.20,l:"COVID",o:1}
+    ];
+    FLAGS.forEach(f=>{
+      let best=series[0], bd=1e9;
+      series.forEach(p=>{ const d=Math.abs(p.t-f.t); if(d<bd){bd=d;best=p;} });
+      const x=X(best.t), y=Y(best.v), ly=y-(2+16*f.o);
+      svg.appendChild(svgEl("line",{x1:x,x2:x,y1:y-5,y2:ly+4,stroke:LINE,"stroke-width":1}));
+      svg.appendChild(svgEl("circle",{cx:x,cy:y,r:3.5,fill:GOLD,stroke:"#ffffff","stroke-width":2}));
+      const anchor = x>W-150 ? "end" : (x<L+40 ? "start" : "middle");
+      svg.appendChild(txt(svgEl("text",{x:x,y:ly,"text-anchor":anchor,"font-size":11.5,fill:SLATE}),f.l));
+    });
+    const last=series[series.length-1];
+    svg.appendChild(svgEl("circle",{cx:X(last.t),cy:Y(last.v),r:4,fill:GOLD,stroke:"#ffffff","stroke-width":2}));
+    svg.appendChild(txt(svgEl("text",{x:X(last.t)+8,y:Y(last.v)+4,"font-size":13,"font-weight":700,fill:NAVY}),"$19,374"));
+    const cross=svgEl("line",{x1:0,x2:0,y1:T-6,y2:H-B,stroke:SLATE_L,"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"});
+    svg.appendChild(cross);
+    const dot=svgEl("circle",{r:4,fill:NAVY,stroke:"#ffffff","stroke-width":2,visibility:"hidden"});
+    svg.appendChild(dot);
+    const overlay=svgEl("rect",{x:L,y:T-6,width:W-L-R,height:H-T-B+6,fill:"transparent"});
+    svg.appendChild(overlay);
+    overlay.addEventListener("mousemove",e=>{
+      const r=svg.getBoundingClientRect(), mx=(e.clientX-r.left)*W/r.width;
+      const t=t0+(mx-L)/(W-L-R)*(t1-t0);
+      let idx=Math.round((t-series[0].t)*12);
+      idx=Math.max(0,Math.min(series.length-1,idx));
+      const p=series[idx], x=X(p.t), y=Y(p.v);
+      cross.setAttribute("x1",x); cross.setAttribute("x2",x); cross.setAttribute("visibility","visible");
+      dot.setAttribute("cx",x); dot.setAttribute("cy",y); dot.setAttribute("visibility","visible");
+      const money = p.v>=1000 ? "$"+Math.round(p.v).toLocaleString() : p.v>=10 ? "$"+p.v.toFixed(0) : "$"+p.v.toFixed(2);
+      tip.textContent = MSHORT[p.mi]+" "+p.y+" · $1 → "+money;
+      tip.dataset.hold="1"; tip.style.display="block";
+      tip.style.left=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8)+"px";
+      tip.style.top=Math.max(e.clientY-34,8)+"px";
+    });
+    overlay.addEventListener("mouseleave",()=>{
+      cross.setAttribute("visibility","hidden"); dot.setAttribute("visibility","hidden");
+      delete tip.dataset.hold; tip.style.display="none";
+    });
+    host.appendChild(svg);
+  }
+
+  function roundedBar(x, y0, y1, w, r){
+    const up = y1 < y0, top = Math.min(y0,y1), h = Math.abs(y0-y1);
+    r = Math.min(r, w/2, h);
+    if (h < 0.5) return svgEl("rect",{x:x,y:top,width:w,height:Math.max(h,0.5),fill:"currentColor"});
+    let d;
+    if (up) d = "M"+x+","+y0+" L"+x+","+(top+r)+" Q"+x+","+top+" "+(x+r)+","+top+" L"+(x+w-r)+","+top+" Q"+(x+w)+","+top+" "+(x+w)+","+(top+r)+" L"+(x+w)+","+y0+" Z";
+    else { const bot=top+h; d = "M"+x+","+y0+" L"+x+","+(bot-r)+" Q"+x+","+bot+" "+(x+r)+","+bot+" L"+(x+w-r)+","+bot+" Q"+(x+w)+","+bot+" "+(x+w)+","+(bot-r)+" L"+(x+w)+","+y0+" Z"; }
+    return svgEl("path",{d:d,fill:"currentColor"});
+  }
+
+  function buildBars(hostId, items, opts){
+    const host = document.getElementById(hostId);
+    const W=680, H=252, L=14, R=14, T=26, B=56;
+    const svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H, role:"img","aria-label":opts.aria});
+    const ymin=opts.ymin, ymax=opts.ymax;
+    const Y=v=>T+(1-(v-ymin)/(ymax-ymin))*(H-T-B);
+    const n=items.length, slot=(W-L-R)/n, bw=Math.min(slot*0.56, 46);
+    svg.appendChild(svgEl("line",{x1:L,x2:W-R,y1:Y(0),y2:Y(0),stroke:SLATE_L,"stroke-width":1.2}));
+    items.forEach((it,i)=>{
+      const x=L+slot*i+(slot-bw)/2;
+      const g=svgEl("g",{});
+      g.setAttribute("style","color:"+(it.v>=0?BLUE:"#e34948"));
+      const bar=roundedBar(x, Y(0), Y(it.v), bw, 4);
+      bar.setAttribute("data-tip", it.tipname+" · avg "+fmtPct(it.v,2)+" · up "+it.win+"% of the time");
+      g.appendChild(bar); svg.appendChild(g);
+      const vy = it.v>=0 ? Y(it.v)-7 : Y(it.v)+15;
+      svg.appendChild(txt(svgEl("text",{x:x+bw/2,y:vy,"text-anchor":"middle","font-size":11.5,"font-weight":600,
+        fill:(it.v>=0?BLUE:"#c0392f")}),fmtPct(it.v,it.v>=10?0:1)));
+      svg.appendChild(txt(svgEl("text",{x:x+bw/2,y:H-34,"text-anchor":"middle","font-size":11.5,fill:SLATE}),it.label));
+      svg.appendChild(txt(svgEl("text",{x:x+bw/2,y:H-16,"text-anchor":"middle","font-size":10.5,fill:SLATE_L}),it.win+"%"));
+    });
+    host.appendChild(svg);
+  }
+
+  function buildCycle(){
+    const host = document.getElementById("alm-cycle");
+    const W=680, H=252, L=210, R=120, T=18, RH=52;
+    const svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H, role:"img","aria-label":"Average annual return by year of the presidential term"});
+    const rows=[
+      {k:"post-election", label:"Year after election"},
+      {k:"midterm",       label:"Midterm year"},
+      {k:"pre-election",  label:"Year before election"},
+      {k:"election",      label:"Election year"}
+    ];
+    const max=20;
+    const X=v=>L+(v/max)*(W-L-R);
+    svg.appendChild(svgEl("line",{x1:L,x2:L,y1:T,y2:T+rows.length*RH,stroke:SLATE_L,"stroke-width":1.2}));
+    rows.forEach((r,i)=>{
+      const s=D.cstats[r.k], y=T+i*RH+RH/2;
+      svg.appendChild(txt(svgEl("text",{x:L-12,y:y+4,"text-anchor":"end","font-size":12.5,fill:INK,"font-weight":r.k==="pre-election"?700:400}),r.label));
+      const x0=L, x1=X(s.mean), bh=18, ry=y-bh/2, rr=4;
+      const bar=svgEl("path",{d:"M"+x0+","+ry+" L"+(x1-rr)+","+ry+" Q"+x1+","+ry+" "+x1+","+(ry+rr)+" L"+x1+","+(ry+bh-rr)+" Q"+x1+","+(ry+bh)+" "+(x1-rr)+","+(ry+bh)+" L"+x0+","+(ry+bh)+" Z",fill:BLUE});
+      bar.setAttribute("data-tip", r.label+" · avg "+fmtPct(s.mean)+" · up "+s.win+"% of years (n="+s.n+")");
+      svg.appendChild(bar);
+      svg.appendChild(txt(svgEl("text",{x:x1+10,y:y+4,"font-size":12,"font-weight":700,fill:BLUE}),fmtPct(s.mean)));
+      svg.appendChild(txt(svgEl("text",{x:x1+66,y:y+4,"font-size":11,fill:SLATE_L}),"up "+s.win+"%"));
+    });
+    svg.appendChild(txt(svgEl("text",{x:L,y:T+rows.length*RH+22,"font-size":10.5,fill:SLATE_L}),"Average full-year return, 1927–2025 · “up %” = share of those years positive"));
+    host.appendChild(svg);
+  }
+
+  function buildPath(){
+    const host = document.getElementById("alm-epath");
+    const W=680, H=280, L=46, R=104, T=34, B=44;
+    const svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H, class:"alm-hover", role:"img","aria-label":"Average path of one hundred dollars through election years versus all years"});
+    const cum = arr => { let g=100; return arr.map(v=>{ g*=1+v/100; return g; }); };
+    const eSer=cum(D.epath), aSer=cum(D.allpath);
+    const all=eSer.concat(aSer);
+    const ymin=Math.floor(Math.min(100,...all))-1, ymax=Math.ceil(Math.max(...all))+1;
+    const X=i=>L+i/11*(W-L-R);
+    const Y=v=>T+(1-(v-ymin)/(ymax-ymin))*(H-T-B);
+    for(let v=100; v<=ymax; v+=5){
+      svg.appendChild(svgEl("line",{x1:L,x2:W-R,y1:Y(v),y2:Y(v),stroke:LINE,"stroke-width":1}));
+      svg.appendChild(txt(svgEl("text",{x:L-8,y:Y(v)+4,"text-anchor":"end","font-size":10.5,fill:SLATE_L}),"$"+v));
+    }
+    MSHORT.forEach((m,i)=>{
+      svg.appendChild(txt(svgEl("text",{x:X(i),y:H-22,"text-anchor":"middle","font-size":10.5,fill:SLATE_L}),m));
+    });
+    const vx=X(10);
+    svg.appendChild(svgEl("line",{x1:vx,x2:vx,y1:T-6,y2:H-B,stroke:SLATE_L,"stroke-width":1,"stroke-dasharray":"4 3"}));
+    svg.appendChild(txt(svgEl("text",{x:vx,y:T-12,"text-anchor":"middle","font-size":10.5,fill:SLATE_L}),"the vote"));
+    function line(ser, color, width){
+      let pts=""; ser.forEach((v,i)=>{ pts+=X(i).toFixed(1)+","+Y(v).toFixed(1)+" "; });
+      svg.appendChild(svgEl("polyline",{points:pts,fill:"none",stroke:color,"stroke-width":width,"stroke-linejoin":"round"}));
+    }
+    line(aSer,SLATE_L,2);
+    line(eSer,GOLD,2.6);
+    svg.appendChild(txt(svgEl("text",{x:X(11)+8,y:Y(eSer[11])+3,"font-size":11.5,"font-weight":700,fill:GOLD}),"Election years"));
+    svg.appendChild(txt(svgEl("text",{x:X(11)+8,y:Y(aSer[11])+14,"font-size":11.5,fill:SLATE}),"All years"));
+    const cross=svgEl("line",{x1:0,x2:0,y1:T-6,y2:H-B,stroke:SLATE_L,"stroke-width":1,visibility:"hidden"});
+    svg.appendChild(cross);
+    const d1=svgEl("circle",{r:4,fill:GOLD,stroke:"#ffffff","stroke-width":2,visibility:"hidden"});
+    const d2=svgEl("circle",{r:4,fill:SLATE_L,stroke:"#ffffff","stroke-width":2,visibility:"hidden"});
+    svg.appendChild(d1); svg.appendChild(d2);
+    const overlay=svgEl("rect",{x:L,y:T-6,width:W-L-R,height:H-T-B+6,fill:"transparent"});
+    svg.appendChild(overlay);
+    overlay.addEventListener("mousemove",e=>{
+      const r=svg.getBoundingClientRect(), mx=(e.clientX-r.left)*W/r.width;
+      let i=Math.round((mx-L)/(W-L-R)*11); i=Math.max(0,Math.min(11,i));
+      cross.setAttribute("x1",X(i)); cross.setAttribute("x2",X(i)); cross.setAttribute("visibility","visible");
+      d1.setAttribute("cx",X(i)); d1.setAttribute("cy",Y(eSer[i])); d1.setAttribute("visibility","visible");
+      d2.setAttribute("cx",X(i)); d2.setAttribute("cy",Y(aSer[i])); d2.setAttribute("visibility","visible");
+      tip.textContent = MSHORT[i]+" · election years $"+eSer[i].toFixed(1)+" · all years $"+aSer[i].toFixed(1);
+      tip.dataset.hold="1"; tip.style.display="block";
+      tip.style.left=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8)+"px";
+      tip.style.top=Math.max(e.clientY-34,8)+"px";
+    });
+    overlay.addEventListener("mouseleave",()=>{
+      cross.setAttribute("visibility","hidden"); d1.setAttribute("visibility","hidden"); d2.setAttribute("visibility","hidden");
+      delete tip.dataset.hold; tip.style.display="none";
+    });
+    host.appendChild(svg);
+  }
+
+  /* sectors by president (data: BlackRock, Student of the Market) */
+  const PRES = [
+    {name:"Bush", yrs:"2001–2009", rows:[["Energy",9.9],["Materials",6.6],["Cons. Staples",4.2],["Utilities",-0.1],["Industrials",-1.0],["Health Care",-2.2],["Consumer Disc.",-2.3],["Financials",-4.4],["Comm. Services",-5.1],["Technology",-8.7]]},
+    {name:"Obama", yrs:"2009–2017", rows:[["Consumer Disc.",18.6],["Technology",16.4],["Health Care",14.2],["Cons. Staples",12.8],["Industrials",12.7],["Real Estate",12.7],["Utilities",10.9],["Materials",10.1],["Comm. Services",9.5],["Financials",7.2],["Energy",5.0]]},
+    {name:"Trump 1", yrs:"2017–2021", rows:[["Technology",26.8],["Consumer Disc.",18.6],["Health Care",12.7],["Utilities",9.9],["Materials",9.9],["Comm. Services",9.1],["Industrials",8.5],["Cons. Staples",7.4],["Financials",6.8],["Real Estate",6.5],["Energy",-16.4]]},
+    {name:"Biden", yrs:"2021–2025", rows:[["Energy",38.2],["Technology",23.3],["Financials",19.4],["Industrials",16.0],["Comm. Services",13.6],["Materials",11.2],["Health Care",10.5],["Cons. Staples",10.0],["Real Estate",9.1],["Consumer Disc.",9.0],["Utilities",8.3]]},
+    {name:"Trump 2", yrs:"2025– · partial", rows:[["Comm. Services",35.8],["Energy",24.3],["Technology",24.0],["Industrials",20.1],["Utilities",16.2],["Consumer Disc.",13.4],["Financials",9.5],["Cons. Staples",9.1],["Materials",8.3],["Real Estate",5.5],["Health Care",0.9]]}
+  ];
+  function buildPres(){
+    const host = document.getElementById("alm-pres");
+    PRES.forEach(p=>{
+      const col = el("alm-pcol");
+      const h = el("alm-phead"); h.textContent = p.name;
+      const y = el("yrs","span"); y.textContent = p.yrs; h.appendChild(y);
+      col.appendChild(h);
+      p.rows.forEach(r=>{
+        const c = el("alm-pcell");
+        const bg = rampColor(r[1], 40);
+        c.style.background = bg; c.style.color = inkFor(bg);
+        c.dataset.sector = r[0];
+        c.setAttribute("data-tip", r[0]+" under "+p.name+" · "+fmtPct(r[1])+" a year");
+        const nm = document.createElement("span"); nm.textContent = r[0];
+        const v = el("v","span"); v.textContent = fmtPct(r[1]);
+        c.appendChild(v); c.appendChild(nm);
+        col.appendChild(c);
+      });
+      host.appendChild(col);
+    });
+    host.addEventListener("mouseover", e=>{
+      const c = e.target.closest(".alm-pcell"); if(!c) return;
+      host.querySelectorAll('.alm-pcell[data-sector="'+c.dataset.sector+'"]').forEach(x=>x.classList.add("alm-hl"));
+    });
+    host.addEventListener("mouseout", e=>{
+      const c = e.target.closest(".alm-pcell"); if(!c) return;
+      host.querySelectorAll(".alm-hl").forEach(x=>x.classList.remove("alm-hl"));
+    });
+  }
+
+  buildBoard();
+  buildGrowth();
+  buildBars("alm-monthly",
+    D.mstats.map((s,i)=>({label:MSHORT[i], v:s.mean, win:s.win, tipname:MONTHS[i]})),
+    {ymin:-1.6, ymax:2.6, aria:"Average return by calendar month with share of months positive"});
+  buildBars("alm-quarterly",
+    D.qstats.map((s,i)=>({label:"Q"+(i+1), v:s.mean, win:s.win, tipname:"Q"+(i+1)})),
+    {ymin:0, ymax:4.6, aria:"Average return by quarter with share of quarters positive"});
+  buildCycle();
+  buildPath();
+  buildPres();
+  })();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
