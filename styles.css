@@ -143,6 +143,7 @@ p { margin: 0 0 1.1em; }
   color: var(--slate);
   position: relative;
   padding: 0.4rem 0;
+  white-space: nowrap;
 }
 .site-nav a:hover { color: var(--navy); }
 .site-nav a[aria-current="page"] { color: var(--navy); }
@@ -463,6 +464,13 @@ a.post-card:hover { transform: translateY(-4px); box-shadow: 0 22px 44px -26px r
 .ph { background: rgba(166,124,52,0.14); border-bottom: 1px dashed var(--gold); padding: 0 3px; font-style: italic; }
 
 /* Responsive -------------------------------------------------------------- */
+/* 7 single-line nav labels exceed the 1140px container at the base sizing —
+   compress nav gap/type slightly at every desktop width (mobile drawer keeps base sizes) */
+@media (min-width: 1081px) {
+  .site-nav { gap: 0.95rem; }
+  .site-nav a { font-size: 0.8rem; }
+  .brand-text { font-size: 1.14rem; }
+}
 /* Team cards need width — stack to one centered column before they get cramped */
 @media (max-width: 1080px) {
   .team-grid { max-width: 440px; margin-left: auto; margin-right: auto; }
