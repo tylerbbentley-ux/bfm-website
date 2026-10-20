@@ -10,6 +10,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=24">
+<style>
+  .filter-bar { display: none; max-width: 780px; margin: 0 auto 1.8rem; align-items: flex-end; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .has-filter .filter-bar { display: flex; }
+  .filter-bar > * { min-width: 0; }
+  .post-card[hidden] { display: none; }
+  .tabs { display: flex; flex-wrap: wrap; column-gap: 1.9rem; }
+  .tabs button { font-family: var(--font-body); cursor: pointer; background: none; border: 0; padding: 0.4rem 0 0.85rem; margin-bottom: -1px; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--slate); border-bottom: 2px solid transparent; white-space: nowrap; }
+  .tabs button:hover { color: var(--navy); }
+  .tabs button[aria-pressed="true"] { color: var(--navy); border-bottom-color: var(--gold); }
+  .sort { display: flex; align-items: center; gap: 0.9rem; padding-bottom: 0.55rem; font-size: 0.85rem; color: var(--slate); }
+  .sort select { font: inherit; color: var(--navy); background-color: transparent; border: 0; padding: 0.3rem 1.1rem 0.3rem 0; appearance: none; -webkit-appearance: none; cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+    background-position: right 4px center, right 0 center; background-size: 4px 4px, 4px 4px; background-repeat: no-repeat; }
+  .tabs button:focus-visible, .sort select:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  @media (max-width: 640px) {
+    .filter-bar { flex-direction: column; align-items: stretch; }
+    .filter-bar .lg { display: none; }
+    .tabs { column-gap: 1.3rem; }
+    .sort { justify-content: space-between; padding-top: 0.45rem; border-top: 1px solid var(--line); }
+  }
+</style>
 </head>
 <body>
 
@@ -44,51 +65,61 @@
 
   <section class="section section--ivory">
     <div class="wrap">
+      <div class="filter-bar" role="region" aria-label="Filter and sort articles">
+        <div class="tabs">
+          <button type="button" data-type-btn="all">All</button>
+          <button type="button" data-type-btn="weekly">Weekly <span class="lg">Market </span>Notes</button>
+          <button type="button" data-type-btn="perspective"><span class="lg">Market </span>Perspectives</button>
+        </div>
+        <div class="sort"><span data-count aria-live="polite"></span>
+          <select data-order-select aria-label="Sort articles"><option value="new">Newest first</option><option value="old">Oldest first</option></select>
+        </div>
+      </div>
       <div class="post-list">
-        <a class="post-card" href="insights-market-note-2026-10-16.html">
+        <a class="post-card" data-type="weekly" data-date="2026-10-16" href="insights-market-note-2026-10-16.html">
           <div class="post-date">Weekly Market Note &middot; October 12 &ndash; 16, 2026</div>
           <h3>Investors step back from technology as inflation picks up</h3>
           <p>Chip stocks fell for eight straight days, investors moved toward steadier sectors and bonds, and September inflation came in hotter than expected. What moved markets this week, and what to watch next.</p>
           <span class="read-more">Read &rsaquo;</span>
         </a>
-        <a class="post-card" href="insights-midterm-elections-2026.html">
-          <div class="post-date">Market Note &middot; October 7, 2026</div>
-          <h3>Investing through a midterm election</h3>
-          <p>Midterm election years have historically been the weakest year of the presidential term, and the months after the vote among the strongest. What the history means for investors this fall.</p>
-          <span class="read-more">Read &rsaquo;</span>
-        </a>
-        <a class="post-card" href="insights-market-note-2026-10-09.html">
+        <a class="post-card" data-type="weekly" data-date="2026-10-09" href="insights-market-note-2026-10-09.html">
           <div class="post-date">Weekly Market Note &middot; October 5 &ndash; 9, 2026</div>
           <h3>Stocks set a record as buyers return to bonds</h3>
           <p>The S&amp;P 500 set its first record close since August, buyers returned to the bond market after five weeks of losses, and wireless carriers fell after a SpaceX spectrum deal. What moved markets this week, and what to watch next.</p>
           <span class="read-more">Read &rsaquo;</span>
         </a>
-        <a class="post-card" href="insights-century-of-markets.html">
+        <a class="post-card" data-type="perspective" data-date="2026-10-07" href="insights-midterm-elections-2026.html">
+          <div class="post-date">Market Perspective &middot; October 7, 2026</div>
+          <h3>Investing through a midterm election</h3>
+          <p>Midterm election years have historically been the weakest year of the presidential term, and the months after the vote among the strongest. What the history means for investors this fall.</p>
+          <span class="read-more">Read &rsaquo;</span>
+        </a>
+        <a class="post-card" data-type="perspective" data-date="2026-07-09" href="insights-century-of-markets.html">
           <div class="post-date">Market Perspective &middot; July 9, 2026</div>
           <h3>A century of the market, month by month</h3>
           <p>One hundred years of U.S. stock market returns in one interactive view — every month, quarter, and year since 1926, with the crashes and elections marked, plus which sectors won under the last five presidents. What the calendar does and doesn&rsquo;t tell you, and why staying invested is the signal that matters.</p>
           <span class="read-more">Explore &rsaquo;</span>
         </a>
-        <a class="post-card" href="insights-ai-next-act.html">
+        <a class="post-card" data-type="perspective" data-date="2026-07-09" href="insights-ai-next-act.html">
           <div class="post-date">Market Perspective &middot; July 2026</div>
           <h3>What AI&rsquo;s next act might look like</h3>
           <p>The market is shifting from paying for the promise of artificial intelligence to paying for proof it works. Drawing on LPL Research&rsquo;s Midyear Outlook 2026, we look at what that change means for investors.</p>
           <span class="read-more">Read &rsaquo;</span>
         </a>
-        <a class="post-card" href="insights-market-note-2026-07-03.html">
+        <a class="post-card" data-type="weekly" data-date="2026-07-03" href="insights-market-note-2026-07-03.html">
           <div class="post-date">Weekly Market Note &middot; June 29 &ndash; July 3, 2026</div>
           <h3>Records hold as the market&rsquo;s leadership broadens</h3>
           <p>U.S. equities closed an exceptional first half near record highs — but beneath the surface, leadership quietly broadened, and the Federal Reserve changed course. What it means for our clients.</p>
           <span class="read-more">Read &rsaquo;</span>
         </a>
-        <a class="post-card" href="insights-staying-disciplined.html">
-          <div class="post-date">Market Note &middot; June 13, 2026</div>
+        <a class="post-card" data-type="perspective" data-date="2026-06-13" href="insights-staying-disciplined.html">
+          <div class="post-date">Market Perspective &middot; June 13, 2026</div>
           <h3>Staying disciplined when the market gets loud</h3>
           <p>Financial headlines are engineered for your attention, not your decisions. How we keep short-term noise from driving long-term choices.</p>
           <span class="read-more">Read &rsaquo;</span>
         </a>
-        <a class="post-card" href="insights-holistic-meaning.html">
-          <div class="post-date">Perspective &middot; May 2026</div>
+        <a class="post-card" data-type="perspective" data-date="2026-05-01" href="insights-holistic-meaning.html">
+          <div class="post-date">Market Perspective &middot; May 2026</div>
           <h3>What &ldquo;holistic&rdquo; actually means for your money</h3>
           <p>The word gets used a lot. Here&rsquo;s what it looks like when your investing, planning, and taxes work together — and why it matters.</p>
           <span class="read-more">Read &rsaquo;</span>
@@ -143,6 +174,49 @@
   </footer>
 
   <script src="script.js"></script>
+<script>
+(function () {
+  var list = document.querySelector('.post-list');
+  var sel = document.querySelector('[data-order-select]');
+  var countEl = document.querySelector('[data-count]');
+  if (!list || !sel || !countEl) return;
+  document.documentElement.classList.add('has-filter');
+  var cards = Array.prototype.slice.call(list.querySelectorAll('.post-card'));
+  cards.forEach(function (c, i) { c.dataset.idx = i; });
+  var state = { type: 'all', order: 'new' };
+  function readHash() {
+    var h = (location.hash || '').replace('#', '');
+    state.type = (h === 'weekly' || h === 'perspective') ? h : 'all';
+  }
+  function render() {
+    var shown = cards.filter(function (c) { return state.type === 'all' || c.dataset.type === state.type; });
+    shown.sort(function (a, b) {
+      if (a.dataset.date === b.dataset.date) return a.dataset.idx - b.dataset.idx;
+      var d = a.dataset.date < b.dataset.date ? -1 : 1;
+      return state.order === 'new' ? -d : d;
+    });
+    cards.forEach(function (c) { c.hidden = shown.indexOf(c) < 0; });
+    shown.forEach(function (c) { list.appendChild(c); });
+    countEl.textContent = shown.length + (shown.length === 1 ? ' article' : ' articles');
+    document.querySelectorAll('[data-type-btn]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.typeBtn === state.type ? 'true' : 'false');
+    });
+    sel.value = state.order;
+  }
+  document.querySelectorAll('[data-type-btn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.type = b.dataset.typeBtn;
+      history.replaceState(null, '', state.type === 'all' ? location.pathname + location.search : '#' + state.type);
+      render();
+    });
+  });
+  sel.addEventListener('change', function () { state.order = sel.value; render(); });
+  window.addEventListener('hashchange', function () { readHash(); render(); });
+  readHash();
+  render();
+})();
+</script>
+
   <a class="bc-float" href="https://brokercheck.finra.org/" target="_blank" rel="noopener noreferrer" aria-label="Check the background of investment professionals associated with this site on FINRA BrokerCheck"><img src="assets/brokercheck-by-finra.png" alt="BrokerCheck by FINRA" width="150" height="21"></a>
     <script data-goatcounter="https://bentleyfinancialmanagement.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
