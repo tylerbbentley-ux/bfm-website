@@ -323,6 +323,7 @@ form.contact-form { display: grid; gap: 1.1rem; }
 
 /* Team -------------------------------------------------------------------- */
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.team-grid { width: 95%; margin-left: auto; margin-right: auto; }
 .team-member {
   background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--gold);
   padding: 2rem 1.8rem; transition: transform 0.28s ease, box-shadow 0.28s ease;
@@ -349,6 +350,8 @@ form.contact-form { display: grid; gap: 1.1rem; }
   font-family: var(--font-display); font-weight: 700; font-size: 3.6rem; letter-spacing: 0.05em;
   color: var(--gold); background: radial-gradient(circle at 50% 40%, #1c1c1c, #050505);
 }
+/* Team portrait: full width, bottom trimmed to a slightly squarer shape */
+.tm-photo--full { aspect-ratio: 2 / 2.55; object-fit: cover; object-position: center top; }
 /* Nudge a portrait's subject ~10% larger within its frame (black bg crops in) */
 .tm-photo--zoom { transform: scale(1.1); transform-origin: center 42%; }
 /* Raise a single portrait's subject higher in the frame (head alignment) */
@@ -383,7 +386,7 @@ form.contact-form { display: grid; gap: 1.1rem; }
 }
 .s-photo {
   width: 80px; height: 80px; display: block; object-fit: cover; object-position: center 25%;
-  border: 1.5px solid var(--gold); filter: grayscale(1);
+  border: 1.5px solid var(--gold);
 }
 .s-name { font-family: var(--font-display); font-size: 1.35rem; color: var(--navy); }
 .s-years { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-light); font-weight: 600; margin-top: -0.4rem; }
